@@ -34,7 +34,7 @@ public class ViewAllDeals extends AppCompatActivity {
     }
 
     class FetchDealsTask extends AsyncTask<Void, Void, ArrayList> {
-        
+
         @Override
         protected ArrayList doInBackground(Void... params) {
             Log.d("FetchDealsTask", "Entered doInBackground");
