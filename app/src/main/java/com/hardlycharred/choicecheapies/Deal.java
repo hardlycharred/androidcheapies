@@ -78,8 +78,8 @@ public class Deal {
         this.expired = expired;
     }
 
-    
-    // Only uses the title so only title shows up in GUI JList
+
+    // Only uses the title so only title shows up in GUI
     @Override
     public String toString() {
         return title;

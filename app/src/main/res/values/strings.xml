@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Choice Cheapies</string>
+    <string name="textView_original_value">null</string>
 </resources>

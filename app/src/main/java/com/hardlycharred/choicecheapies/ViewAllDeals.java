@@ -25,18 +25,20 @@ public class ViewAllDeals extends AppCompatActivity {
         ListView lv = (ListView) findViewById(R.id.allDealsView);
 
         //Declaration part
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+        ArrayAdapter<Deal> arrayAdapter = new ArrayAdapter<>(
                 ViewAllDeals.this,
                 android.R.layout.simple_list_item_1,
-                new ArrayList<String>());
+                new ArrayList<Deal>());
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String thisDeal = (String) parent.getItemAtPosition(position);
-                Log.d("ViewAllDeals CLick", thisDeal);
+                Deal curDeal = (Deal) parent.getItemAtPosition(position);
+                Log.d("onItemClick", "We got the clicked deal");
+                String curDealName = curDeal.getTitle();
+                Log.d("ViewAllDeals CLick", curDealName);
                 Intent intent = new Intent(ViewAllDeals.this, ViewIndividualDeal.class);
-                intent.putExtra(MESSAGE, thisDeal);
+                intent.putExtra(MESSAGE, curDealName);
                 startActivity(intent);
             }
         });
@@ -53,7 +55,7 @@ public class ViewAllDeals extends AppCompatActivity {
         @Override
         protected ArrayList doInBackground(Void... params) {
             Log.d("FetchDealsTask", "Entered doInBackground");
-            ArrayList<String> dealNames = new ArrayList<>();
+            ArrayList<Deal> retrievedDeals = new ArrayList<>();
             Log.d("FetchDealsTask", "Made arraylist");
             PopulateSales populateSales = new PopulateSales();
             DealDAO dealDAO = new DealDAO();
@@ -61,22 +63,22 @@ public class ViewAllDeals extends AppCompatActivity {
                 Log.d("FetchDealsTask", "Before sales retrieval");
                 populateSales.getDeals();
                 for (Deal d : dealDAO.getCurrentDeals()) {
-                    dealNames.add(d.getTitle());
+                    retrievedDeals.add(d);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             Log.d("FetchDealsTask", "Finished doInBackground");
-            return dealNames;
+            return retrievedDeals;
         }
 
         @Override
-        protected void onPostExecute(ArrayList retrievedDealNames) {
+        protected void onPostExecute(ArrayList retrievedDeals) {
             Log.d("onPostExecute", "Deal Names Retrieved");
             ListView lv = (ListView) findViewById(R.id.allDealsView);
             ArrayAdapter lvAdapter = (ArrayAdapter) lv.getAdapter();
             lvAdapter.clear();
-            lvAdapter.addAll(retrievedDealNames);
+            lvAdapter.addAll(retrievedDeals);
 
         }
     }
