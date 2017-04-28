@@ -22,7 +22,7 @@ public class PopulateSales {
     DealDAO dealDAO = new DealDAO();
 
     public void getDeals() throws IOException {
-        Document doc = Jsoup.connect("https://www.cheapies.nz/").get();
+        Document doc = Jsoup.connect("https://www.cheapies.nz/deals").get();
         Elements dealTitles = doc.select("div.n-right");
         for (Element e : dealTitles) {
             Deal d = new Deal();
