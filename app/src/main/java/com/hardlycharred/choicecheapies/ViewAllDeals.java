@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ViewAllDeals extends AppCompatActivity {
 
-    public static final String MESSAGE = "com.hardlycharred.choicecheapies.MESSAGE";
+    public static final String DEAL = "com.hardlycharred.choicecheapies.DEAL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,8 @@ public class ViewAllDeals extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Deal curDeal = (Deal) parent.getItemAtPosition(position);
                 Log.d("onItemClick", "We got the clicked deal");
-                String curDealName = curDeal.getTitle();
-                Log.d("ViewAllDeals CLick", curDealName);
                 Intent intent = new Intent(ViewAllDeals.this, ViewIndividualDeal.class);
-                intent.putExtra(MESSAGE, curDealName);
+                intent.putExtra(DEAL, curDeal);
                 startActivity(intent);
             }
         });
