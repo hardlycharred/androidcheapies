@@ -5,11 +5,13 @@
  */
 package com.hardlycharred.choicecheapies;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Charlie Hard
  */
-public class Deal {
+public class Deal implements Serializable {
     
     private String title;
     private String coupon;
