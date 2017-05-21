@@ -1,4 +1,4 @@
-package com.hardlycharred.choicecheapies;
+package com.hardlycharred.choicecheapies.gui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,10 +10,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.hardlycharred.choicecheapies.R;
+import com.hardlycharred.choicecheapies.dao.DealDAO;
+import com.hardlycharred.choicecheapies.domain.Deal;
+import com.hardlycharred.choicecheapies.misc.PopulateSales;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ViewAllDeals extends AppCompatActivity {
+public class ViewAllDealsActivity extends AppCompatActivity {
 
     public static final String DEAL = "com.hardlycharred.choicecheapies.DEAL";
 
@@ -26,7 +31,7 @@ public class ViewAllDeals extends AppCompatActivity {
 
         //Declaration part
         ArrayAdapter<Deal> arrayAdapter = new ArrayAdapter<>(
-                ViewAllDeals.this,
+                ViewAllDealsActivity.this,
                 android.R.layout.simple_list_item_1,
                 new ArrayList<Deal>());
         lv.setAdapter(arrayAdapter);
@@ -35,7 +40,7 @@ public class ViewAllDeals extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Deal curDeal = (Deal) parent.getItemAtPosition(position);
                 Log.d("onItemClick", "We got the clicked deal");
-                Intent intent = new Intent(ViewAllDeals.this, ViewIndividualDeal.class);
+                Intent intent = new Intent(ViewAllDealsActivity.this, ViewIndividualDealActivity.class);
                 intent.putExtra(DEAL, curDeal);
                 startActivity(intent);
             }

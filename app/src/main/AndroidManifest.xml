@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewAllDeals">
+        <activity android:name=".gui.ViewAllDealsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewIndividualDeal"
-            android:parentActivityName=".ViewAllDeals"></activity>
+            android:name=".gui.ViewIndividualDealActivity"
+            android:parentActivityName=".gui.ViewAllDealsActivity"></activity>
     </application>
 
 </manifest>

@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hardlycharred.choicecheapies;
+package com.hardlycharred.choicecheapies.misc;
 
+
+import com.hardlycharred.choicecheapies.dao.DealDAO;
+import com.hardlycharred.choicecheapies.domain.Deal;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -37,23 +40,21 @@ public class PopulateSales {
             d.setCheapiesURL(e.select("h2 a").attr("abs:href"));
             d.setDealURL(e.select("a").attr("abs:href"));
 
-
-            // Adds full description by entering the deal's own page
-            Document descDoc = Jsoup.connect(d.getCheapiesURL()).get();
-
-            Elements descElement = descDoc.select("div.content");
-
-            HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
-            String formattedDesc = htmlToPlainText.getPlainText(descElement.get(0));
-            d.setDescription(formattedDesc);
-
             dealDAO.addDeal(d);
         }
-
         // Removes 'Hot Discussions' from list of deals
         dealDAO.removeDeal(dealDAO.getCurrentDeals().size() - 1);
-        
-        
+    }
+
+    public String getDealDescription(String cheapiesURL) throws IOException {
+
+        // Adds full description by entering the deal's own page
+        Document descDoc = Jsoup.connect(cheapiesURL).get();
+        Elements descElement = descDoc.select("div.content");
+        HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
+        String formattedDesc = htmlToPlainText.getPlainText(descElement.get(0));
+        return formattedDesc;
+
     }
 
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hardlycharred.choicecheapies;
+package com.hardlycharred.choicecheapies.domain;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.hardlycharred.choicecheapies;
+package com.hardlycharred.choicecheapies.misc;
 
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
