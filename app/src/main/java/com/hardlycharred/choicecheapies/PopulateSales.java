@@ -32,12 +32,24 @@ public class PopulateSales {
                 d.setExpired(false);
             }
             d.setTitle(e.select("h2.title").attr("data-title"));
-            d.setDescription(e.select("div.content p").text());
+//            d.setDescription(e.select("div.content p").text());
             d.setCoupon(e.select("div.couponcode").text());
             d.setCheapiesURL(e.select("h2 a").attr("abs:href"));
             d.setDealURL(e.select("a").attr("abs:href"));
+
+
+            // Adds full description by entering the deal's own page
+            Document descDoc = Jsoup.connect(d.getCheapiesURL()).get();
+
+            Elements descElement = descDoc.select("div.content");
+
+            HtmlToPlainText htmlToPlainText = new HtmlToPlainText();
+            String formattedDesc = htmlToPlainText.getPlainText(descElement.get(0));
+            d.setDescription(formattedDesc);
+
             dealDAO.addDeal(d);
         }
+
         // Removes 'Hot Discussions' from list of deals
         dealDAO.removeDeal(dealDAO.getCurrentDeals().size() - 1);
         
