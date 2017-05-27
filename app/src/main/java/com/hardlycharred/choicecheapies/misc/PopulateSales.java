@@ -15,6 +15,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,8 +25,9 @@ public class PopulateSales {
 
     DealDAO dealDAO = new DealDAO();
 
-    public void getDeals() throws IOException {
-        Document doc = Jsoup.connect("https://www.cheapies.nz/deals").get();
+    public void getDeals(String url) throws IOException {
+        dealDAO.setCurrentDeals(new ArrayList<Deal>());
+        Document doc = Jsoup.connect(url).get();
         Elements dealTitles = doc.select("div.n-right");
         for (Element e : dealTitles) {
             Deal d = new Deal();

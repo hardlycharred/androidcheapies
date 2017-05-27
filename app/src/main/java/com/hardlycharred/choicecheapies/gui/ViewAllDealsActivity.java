@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.hardlycharred.choicecheapies.R;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 public class ViewAllDealsActivity extends AppCompatActivity {
 
     public static final String DEAL = "com.hardlycharred.choicecheapies.DEAL";
+    DealDAO dealDAO = new DealDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,28 @@ public class ViewAllDealsActivity extends AppCompatActivity {
             }
         });
 
+
         Log.d("Before thread called ", "We made it this far");
         new FetchDealsTask().execute();
         Log.d("After thread is called ", "We made it this far");
 
+        Button nextPage = (Button) findViewById(R.id.nextPage);
+        nextPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dealDAO.incrementCurrentPage();
+                new FetchDealsTask().execute();
+            }
+        });
 
+        Button prevPage = (Button) findViewById(R.id.prevPage);
+        prevPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dealDAO.decrementCurrentPage();
+                new FetchDealsTask().execute();
+            }
+        });
     }
 
     class FetchDealsTask extends AsyncTask<Void, Void, ArrayList> {
@@ -61,10 +80,9 @@ public class ViewAllDealsActivity extends AppCompatActivity {
             ArrayList<Deal> retrievedDeals = new ArrayList<>();
             Log.d("FetchDealsTask", "Made arraylist");
             PopulateSales populateSales = new PopulateSales();
-            DealDAO dealDAO = new DealDAO();
             try {
                 Log.d("FetchDealsTask", "Before sales retrieval");
-                populateSales.getDeals();
+                populateSales.getDeals(dealDAO.getCurrentPageURL());
                 for (Deal d : dealDAO.getCurrentDeals()) {
                     retrievedDeals.add(d);
                 }
@@ -81,8 +99,8 @@ public class ViewAllDealsActivity extends AppCompatActivity {
             ListView lv = (ListView) findViewById(R.id.allDealsView);
             ArrayAdapter lvAdapter = (ArrayAdapter) lv.getAdapter();
             lvAdapter.clear();
+            lv.setAdapter(lvAdapter);
             lvAdapter.addAll(retrievedDeals);
-
         }
     }
 

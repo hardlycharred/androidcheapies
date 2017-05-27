@@ -18,9 +18,14 @@ public class DealDAO {
 
     private static List<Deal> currentDeals = new ArrayList<Deal>();
     private static List<Deal> expiredDeals = new ArrayList<Deal>();
+    private Integer currentPage = 0;
 
     public List<Deal> getCurrentDeals() {
         return currentDeals;
+    }
+
+    public static void setCurrentDeals(List<Deal> currentDeals) {
+        DealDAO.currentDeals = currentDeals;
     }
 
     public void addDeal(Deal d) {
@@ -36,4 +41,31 @@ public class DealDAO {
         currentDeals.remove(i);
     }
 
+    public String getCurrentPageURL() {
+        if (currentPage == 0) {
+            return "https://www.cheapies.nz/deals";
+        } else {
+            return "https://www.cheapies.nz/deals?page=" + currentPage;
+        }
+    }
+
+    public Integer getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Integer currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public void incrementCurrentPage() {
+        if (currentPage < 49) {
+            currentPage++;
+        }
+    }
+
+    public void decrementCurrentPage() {
+        if (currentPage > 0) {
+            currentPage--;
+        }
+    }
 }
