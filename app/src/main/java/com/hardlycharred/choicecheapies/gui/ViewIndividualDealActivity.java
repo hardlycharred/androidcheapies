@@ -1,10 +1,13 @@
 package com.hardlycharred.choicecheapies.gui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hardlycharred.choicecheapies.R;
@@ -35,8 +38,22 @@ public class ViewIndividualDealActivity extends AppCompatActivity {
         intent = getIntent();
         curDeal = (Deal) intent.getSerializableExtra(ViewAllDealsActivity.DEAL);
         tvDealName.setText(curDeal.getTitle());
-        tvDealURL.setText(curDeal.getDealURL());
-        tvCheapiesURL.setText(curDeal.getCheapiesURL());
+        tvDealURL.setText(Html.fromHtml("<u>" + curDeal.getDealURL() + "</u>"));
+        tvDealURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchBrowserIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(curDeal.getDealURL()));
+                startActivity(launchBrowserIntent);
+            }
+        });
+        tvCheapiesURL.setText(Html.fromHtml("<u>" + curDeal.getCheapiesURL() + "</u>"));
+        tvCheapiesURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent launchBrowserIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(curDeal.getCheapiesURL()));
+                startActivity(launchBrowserIntent);
+            }
+        });
         if (curDeal.getDescription() == null) {
             tvDealDesc.setText("Getting Deal Description...");
             new FetchDescriptionsTask().execute();
