@@ -14,7 +14,9 @@ import com.hardlycharred.choicecheapies.misc.PopulateSales;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.hardlycharred.choicecheapies.R.id.dealCheapies;
 import static com.hardlycharred.choicecheapies.R.id.dealName;
+import static com.hardlycharred.choicecheapies.R.id.dealURL;
 
 public class ViewIndividualDealActivity extends AppCompatActivity {
 
@@ -27,10 +29,14 @@ public class ViewIndividualDealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_individual_deal);
         TextView tvDealName = (TextView) findViewById(dealName);
+        TextView tvDealURL = (TextView) findViewById(dealURL);
+        TextView tvCheapiesURL = (TextView) findViewById(dealCheapies);
         tvDealDesc = (TextView) findViewById(R.id.dealDesc);
         intent = getIntent();
         curDeal = (Deal) intent.getSerializableExtra(ViewAllDealsActivity.DEAL);
-        tvDealName.setText("Deal Title: " + curDeal.getTitle());
+        tvDealName.setText(curDeal.getTitle());
+        tvDealURL.setText(curDeal.getDealURL());
+        tvCheapiesURL.setText(curDeal.getCheapiesURL());
         if (curDeal.getDescription() == null) {
             tvDealDesc.setText("Getting Deal Description...");
             new FetchDescriptionsTask().execute();

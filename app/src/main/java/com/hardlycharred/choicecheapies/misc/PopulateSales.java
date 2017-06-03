@@ -41,7 +41,8 @@ public class PopulateSales {
 //            d.setDescription(e.select("div.content p").text());
             d.setCoupon(e.select("div.couponcode").text());
             d.setCheapiesURL(e.select("h2 a").attr("abs:href"));
-            d.setDealURL(e.select("a").attr("abs:href"));
+            String goToDealURL = e.select("a").attr("title");
+            d.setDealURL(goToDealURL.substring(6, goToDealURL.length()));
 
             dealDAO.addDeal(d);
         }

@@ -34,7 +34,7 @@ public class ViewAllDealsActivity extends AppCompatActivity {
         //Declaration part
         ArrayAdapter<Deal> arrayAdapter = new ArrayAdapter<>(
                 ViewAllDealsActivity.this,
-                android.R.layout.simple_list_item_1,
+                R.layout.custom_list_item,
                 new ArrayList<Deal>());
         lv.setAdapter(arrayAdapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
