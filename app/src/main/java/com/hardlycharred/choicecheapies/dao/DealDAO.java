@@ -16,29 +16,43 @@ import java.util.List;
  */
 public class DealDAO {
 
-    private static List<Deal> currentDeals = new ArrayList<Deal>();
-    private static List<Deal> expiredDeals = new ArrayList<Deal>();
+    private static List<Deal> allDeals = new ArrayList<Deal>(25);
+    //    private static List<Deal> expiredDeals = new ArrayList<Deal>(25);
     private Integer currentPage = 0;
 
     public List<Deal> getCurrentDeals() {
-        return currentDeals;
+        return allDeals;
     }
 
     public static void setCurrentDeals(List<Deal> currentDeals) {
-        DealDAO.currentDeals = currentDeals;
+        DealDAO.allDeals = currentDeals;
     }
+//
+//    public static List<Deal> getExpiredDeals() {
+//        return allDeals;
+//    }
+
+//    public static void setExpiredDeals(List<Deal> expiredDeals) {
+//        DealDAO.expiredDeals = expiredDeals;
+//    }
+
+//    public void addDeal(Deal d) {
+//        if (d.getExpired()) {
+//            expiredDeals.add(d);
+//        } else {
+//            currentDeals.add(d);
+//        }
+//    }
 
     public void addDeal(Deal d) {
         if (d.getExpired()) {
-            expiredDeals.add(d);
-        } else {
-            currentDeals.add(d);
-
+            d.setTitle("EXPIRED: " + d.getTitle());
         }
+        allDeals.add(d);
     }
 
     public void removeDeal(int i) {
-        currentDeals.remove(i);
+        allDeals.remove(i);
     }
 
     public String getCurrentPageURL() {

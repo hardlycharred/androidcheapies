@@ -95,12 +95,13 @@ public class ViewAllDealsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList retrievedDeals) {
-            Log.d("onPostExecute", "Deal Names Retrieved");
             ListView lv = (ListView) findViewById(R.id.allDealsView);
             ArrayAdapter lvAdapter = (ArrayAdapter) lv.getAdapter();
             lvAdapter.clear();
             lv.setAdapter(lvAdapter);
             lvAdapter.addAll(retrievedDeals);
+            Integer size = retrievedDeals.size();
+            Log.d("Deal amt ", size.toString());
         }
     }
 

@@ -27,6 +27,7 @@ public class PopulateSales {
 
     public void getDeals(String url) throws IOException {
         dealDAO.setCurrentDeals(new ArrayList<Deal>());
+//        dealDAO.setExpiredDeals(new ArrayList<Deal>());
         Document doc = Jsoup.connect(url).get();
         Elements dealTitles = doc.select("div.n-right");
         for (Element e : dealTitles) {
@@ -44,8 +45,6 @@ public class PopulateSales {
 
             dealDAO.addDeal(d);
         }
-        // Removes 'Hot Discussions' from list of deals
-        dealDAO.removeDeal(dealDAO.getCurrentDeals().size() - 1);
     }
 
     public String getDealDescription(String cheapiesURL) throws IOException {
